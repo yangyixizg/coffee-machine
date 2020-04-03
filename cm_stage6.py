@@ -48,30 +48,31 @@ class CoffeeMachine:
             elif in1 == 'take':
                 print(f'I gave you ${self.money}')
                 self.money = 0
+                self.state = "choosing_an_action"
             elif in1 == 'remaining':
                 self.machine_resources()
+                self.state = "choosing_an_action"
             elif in1 == 'exit':
                 self.state = "exit"
         elif self.state == "choosing_a_type_of_coffee":
-            if in1 == '1':
-                if self.enough_resources(CoffeeMachine.espresso):
-                    self.ingredients_total = [i - j for i, j in zip(self.ingredients_total, CoffeeMachine.espresso)]
-                    self.money += CoffeeMachine.cost[int(in1) - 1]
-                    print("I have enough resources, making you a coffee!")
+            if in1 == 'back':
                 self.state = "choosing_an_action"
-            elif in1 == '2':
-                if self.enough_resources(CoffeeMachine.latte):
-                    self.ingredients_total = [i - j for i, j in zip(self.ingredients_total, CoffeeMachine.latte)]
-                    self.money += CoffeeMachine.cost[int(in1) - 1]
-                    print("I have enough resources, making you a coffee!")
-                self.state = "choosing_an_action"
-            elif in1 == '3':
-                if self.enough_resources(CoffeeMachine.cappuccino):
-                    self.ingredients_total = [i - j for i, j in zip(self.ingredients_total, CoffeeMachine.cappuccino)]
-                    self.money += CoffeeMachine.cost[int(in1) - 1]
-                    print("I have enough resources, making you a coffee!")
-                self.state = "choosing_an_action"
-            elif in1 == 'back':
+            else:
+                if in1 == '1':
+                    if self.enough_resources(CoffeeMachine.espresso):
+                        self.ingredients_total = [i - j for i, j in zip(self.ingredients_total, CoffeeMachine.espresso)]
+                        self.money += CoffeeMachine.cost[int(in1) - 1]
+                        print("I have enough resources, making you a coffee!")
+                elif in1 == '2':
+                    if self.enough_resources(CoffeeMachine.latte):
+                        self.ingredients_total = [i - j for i, j in zip(self.ingredients_total, CoffeeMachine.latte)]
+                        self.money += CoffeeMachine.cost[int(in1) - 1]
+                        print("I have enough resources, making you a coffee!")
+                elif in1 == '3':
+                    if self.enough_resources(CoffeeMachine.cappuccino):
+                        self.ingredients_total = [i - j for i, j in zip(self.ingredients_total, CoffeeMachine.cappuccino)]
+                        self.money += CoffeeMachine.cost[int(in1) - 1]
+                        print("I have enough resources, making you a coffee!")
                 self.state = "choosing_an_action"
         elif self.state == "choosing_the_fill_quantity_water":
             CoffeeMachine.fill_amount[0] = int(in1)
